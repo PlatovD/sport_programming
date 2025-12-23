@@ -22,7 +22,12 @@
 #define ll long long
 using namespace std;
 
-// шаблон
+struct Comparator {
+    bool operator()(pair<ll, ll> p1, pair<ll, ll> p2) {
+        return p1.second < p2.second;
+    }
+};
+
 int main() {
 #if defined _DEBUG
     freopen("input.txt", "r", stdin);
@@ -37,24 +42,34 @@ int main() {
     for (int q = 0; q < t; q++) {
         int n;
         cin >> n;
-        vector<int> a(n);
+        vector<ll> a(n);
         for (auto &el: a) cin >> el;
-
-        int max_sum = 0;
-        for (int val: a) max_sum += val;
-        int l = 0;
-        int r = n - 1;
-        int outer_sum = 0;
-        while (r >= l) {
-            max_sum = max(max_sum, outer_sum + (r + l + 2) * (r - l + 1));
-            if (a[l] >= a[r]) {
-                outer_sum += a[l];
-                l++;
-            } else {
-                outer_sum += a[r];
-                r--;
-            }
+        vector<ll> prefix(n + 1);
+        prefix[0] = 0;
+        vector<ll> postfix(n + 1);
+        postfix[n] = 0;
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + a[i];
         }
-        cout << max_sum << '\n';
+        for (int i = n; i >= 1; i--) {
+            postfix[i - 1] = postfix[i] + a[i - 1];
+        }
+        priority_queue<pair<ll, ll>, vector<pair<ll, ll> >, Comparator> queue;
+        for (ll i = 0; i <= n; i++) {
+            queue.push({i, (i) * (i) + (i) + postfix[i]});
+        }
+
+        ll best = -1;
+        for (ll i = 0; i < n; i++) {
+            pair<ll, ll> better_r = queue.top();
+            if (better_r.first < i) {
+                while (better_r.first < i && !queue.empty()) {
+                    queue.pop();
+                    better_r = queue.top();
+                }
+            }
+            best = max(best, better_r.second + (-(i + 1) * (i + 1) + (i + 1) + prefix[i]));
+        }
+        cout << best << '\n';
     }
 }
