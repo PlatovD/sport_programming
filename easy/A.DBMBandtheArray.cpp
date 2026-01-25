@@ -18,15 +18,18 @@
 #include <random>
 #include <iomanip>
 #include <assert.h>
+#include <functional>
+#include <memory>
+// #define _DEBUG
 
 #define ll long long
 using namespace std;
 
-// шаблон
+
 int main() {
 #if defined _DEBUG
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("rvq.in", "r", stdin);
+    freopen("rvq.out", "w", stdout);
 #endif
     std::ios::sync_with_stdio(false);
     cout << fixed << setprecision(10);
@@ -36,9 +39,23 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        ll n, k;
-        cin >> n >> k;
-
-
+        int n, s, x;
+        cin >> n >> s >> x;
+        int num;
+        int current_sum = 0;
+        for (int i = 0; i < n; i++) {
+            cin >> num;
+            current_sum += num;
+        }
+        if (current_sum > s) {
+            cout << "No" << '\n';
+            continue;
+        }
+        int dif = s - current_sum;
+        if (dif % x == 0) {
+            cout << "Yes" << '\n';
+        } else {
+            cout << "No" << '\n';
+        }
     }
 }
