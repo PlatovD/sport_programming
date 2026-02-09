@@ -1,13 +1,12 @@
 def calc_points(x: int) -> int:
-    if x % 2 == 1: return -1
-    return ((70 + 5 * 10 + 10 * x) // 2) * x
+    return 20 * x + 50 * x * x
 
 
 x = int(input())
 l = 0
-r = 250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+r = 10 ** 1000
 
-total_level = -1
+total_level = 0
 while l <= r:
     mid = l + (r - l) // 2
     if calc_points(mid) >= x:
@@ -17,17 +16,25 @@ while l <= r:
         l = mid + 1
 
 total_points = calc_points(total_level)
-if total_points != x:
-    cnt_actions = 0
-    while total_points - total_level * 10 >= x and cnt_actions < 2:
-        total_points -= total_level * 10
-        cnt_actions += 1
+total_level = total_level * 2
 
-    if cnt_actions == 2:
-        cnt_actions = 0
-        total_level -= 1
-        while total_points - total_level * 10 >= x and cnt_actions < 3:
-            total_points -= total_level * 10
-            cnt_actions += 1
+current_price = total_level * 10
+cnt_steps = 0
+while total_points - current_price >= x and cnt_steps < 2 and total_points - current_price >= 0:
+    cnt_steps += 1
+    total_points -= current_price
+
+if cnt_steps > 0:
+    total_level -= 1
+    total_level = max(0, total_level)
+
+cnt_steps = 0
+current_price = total_level * 10
+while total_points - current_price >= x and cnt_steps < 2 and total_points - current_price >= 0:
+    cnt_steps += 1
+    total_points -= current_price
+if cnt_steps > 0:
+    total_level -= 1
+    total_level = max(0, total_level)
 
 print(total_level, total_points)
