@@ -32,4 +32,25 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (auto &el: a) cin >> el;
+
+    vector<int> pos(n);
+    for (int i = 0; i < n; i++) {
+        pos[i] = i + 1;
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        pos[i] = pos[a[i] - 1];
+    }
+
+    for (auto el: pos) {
+        cout << el << ' ';
+    }
 }
+
