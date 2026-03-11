@@ -41,6 +41,14 @@ int main() {
         vector<string> lines(n);
         for (auto &el: lines) cin >> el;
 
-        
+        // первым этапом пройдусь и на каждую позицию сделаю массив из 26 букв по их присутствию
+        vector existing_chars_on_positions(n, vector<bool>(26));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < k; j++) {
+                existing_chars_on_positions[i][lines[i][j] - 'a'] = true;
+            }
+        }
+
+
     }
 }
