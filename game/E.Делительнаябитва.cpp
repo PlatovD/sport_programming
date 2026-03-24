@@ -25,6 +25,7 @@ using namespace std;
 vector<bool> build_sieve_of_eratosthenes() {
     vector sieve(1e6 + 1, true);
     for (int i = 2; i < 1e6 + 1; i++) {
+        if (!sieve[i]) continue;
         for (int j = i * 2; j < 1e6 + 1; j += i) {
             sieve[j] = false;
         }
@@ -34,8 +35,9 @@ vector<bool> build_sieve_of_eratosthenes() {
 
 
 // шаблон
-// Алиса выигрывает тогда, когда она может взять число и поедлить его на два простых, не равных друг другу
-// Боб выигрывает, если Алиса не может за k ходов сделать то, что она хочет
+// отсортированно сразу - победа Боба
+// в списке есть простое число, которое больше, чем идущее дальше не простое значение - победа Алисы
+//
 int main() {
 #if defined _DEBUG
     freopen("input.txt", "r", stdin);
@@ -63,10 +65,13 @@ int main() {
                 break;
             }
         }
-        if (!is_good) {
+
+        if (is_good) {
             cout << "Bob" << '\n';
         }
 
         vector<bool> sieve = build_sieve_of_eratosthenes();
+
+        
     }
 }
