@@ -36,30 +36,24 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        int n, m;
-        cin >> n >> m;
-        vector<ll> a(n);
-        vector<ll> b(m);
-        for (int i = 0; i < n; i++) cin >> a[i];
-        for (int i = 0; i < m; i++) cin >> b[i];
+        int n;
+        cin >> n;
+        vector has_ball(n, false);
+        string s;
+        cin >> s;
+        int index = 0;
 
-        sort(a.begin(), a.end());
-        sort(b.rbegin(), b.rend());
+        while (true) {
+            if (has_ball[index] == true) break;
+            has_ball[index] = true;
+            if (s[index] == 'L') index--;
+            else index++;
+        }
 
-
-        int diff = m - n;
-        ll prefix_sum = 0;
-        ll postfix_sum = 0;
+        int sum = 0;
         for (int i = 0; i < n; i++) {
-            postfix_sum += abs(b[i + diff] - a[i]);
+            if (has_ball[i]) sum++;
         }
-
-        ll max_sum = postfix_sum;
-        for (int k = 0; k < n; k++) {
-            prefix_sum += abs(a[k] - b[k]);
-            postfix_sum -= abs(a[k] - b[m - n + k]);
-            max_sum = max(prefix_sum + postfix_sum, max_sum);
-        }
-        cout << max_sum << '\n';
+        cout << sum << '\n';
     }
 }
