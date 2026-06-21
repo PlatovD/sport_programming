@@ -11,6 +11,7 @@
 #include<cstring>
 #include<stack>
 #include<vector>
+#include<set>
 #include <cstdint>
 #include <set>
 #include <algorithm>
@@ -20,6 +21,13 @@
 
 #define ll long long
 using namespace std;
+
+
+ll gcd(ll a, ll b) {
+    if (b == 0)
+        return a < 0 ? -a : a;
+    return gcd(b, a % b);
+}
 
 // шаблон
 int main() {
@@ -31,4 +39,13 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    ll a, b;
+    cin >> a >> b;
+    ll res = gcd(a, b);
+    if (res < 3) {
+        cout << 0 << endl;
+    } else {
+        cout << a / res + b / res << endl;
+    }
 }

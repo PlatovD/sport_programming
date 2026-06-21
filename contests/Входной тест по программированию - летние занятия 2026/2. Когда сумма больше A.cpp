@@ -11,6 +11,7 @@
 #include<cstring>
 #include<stack>
 #include<vector>
+#include<set>
 #include <cstdint>
 #include <set>
 #include <algorithm>
@@ -31,4 +32,25 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int A;
+    cin >> A;
+
+    vector<int> v;
+    int num;
+    cin >> num;
+    while (num != 0) {
+        v.emplace_back(num);
+        cin >> num;
+    }
+
+    int current_sum = 0;
+    for (int i = 0; i < v.size(); i++) {
+        current_sum += v[i];
+        if (current_sum > A) {
+            cout << i + 1 << endl;
+            return 0;
+        }
+    }
+    cout << 0 << endl;
 }

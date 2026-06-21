@@ -11,6 +11,7 @@
 #include<cstring>
 #include<stack>
 #include<vector>
+#include<set>
 #include <cstdint>
 #include <set>
 #include <algorithm>
@@ -31,4 +32,10 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int n, k, t;
+    cin >> n >> k >> t;
+    int price = n * 100 + k;
+    int have = t * 100;
+    cout << have / price << endl;
 }

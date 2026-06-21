@@ -11,6 +11,7 @@
 #include<cstring>
 #include<stack>
 #include<vector>
+#include<set>
 #include <cstdint>
 #include <set>
 #include <algorithm>
@@ -20,6 +21,10 @@
 
 #define ll long long
 using namespace std;
+
+bool is_vowel(char c) {
+    return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y';
+}
 
 // шаблон
 int main() {
@@ -31,4 +36,20 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    string s;
+    cin >> s;
+    int n = s.size();
+
+    int l = 0;
+    int r = 1;
+    int best_length = 1;
+    while (r < n) {
+        if (is_vowel(s[r]) == is_vowel(s[r - 1])) {
+            l = r;
+        }
+        r++;
+        best_length = max(best_length, r - l);
+    }
+    cout << best_length << endl;
 }

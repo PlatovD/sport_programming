@@ -11,6 +11,7 @@
 #include<cstring>
 #include<stack>
 #include<vector>
+#include<set>
 #include <cstdint>
 #include <set>
 #include <algorithm>
@@ -31,4 +32,23 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int n;
+    cin >> n;
+    vector<int> v(n - 1);
+    for (int i = 0; i < n - 1; i++) cin >> v[i];
+    sort(v.begin(), v.end());
+
+    int found = -1;
+    for (int i = 0; i < n - 1; i++) {
+        if (v[i] != i + 1) {
+            found = i + 1;
+            break;
+        }
+    }
+    if (found == -1) {
+        cout << n << endl;
+    } else {
+        cout << found << endl;
+    }
 }
