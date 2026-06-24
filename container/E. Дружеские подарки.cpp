@@ -43,8 +43,8 @@ int main() {
         vector<int> a(n);
         for (auto &el: a) cin >> el;
 
-        vector<unordered_set<int> > starts_from(n);
-        vector<unordered_set<int> > ends_to(n);
+        vector starts_from(n + 2, vector<bool>(n + 2));
+        vector ends_to(n + 2, vector<bool>(n + 2));
 
         int best_len = 0;
         for (int start_pos = 0; start_pos < n; start_pos++) {
@@ -63,16 +63,12 @@ int main() {
                     }
                 }
                 if (current_sum == (current_max + current_min) * (len + 1) / 2 && current_max - current_min == len) {
-                    if (starts_from[len].count(current_max + 1)) {
-                        best_len = max(len + 1, best_len);
-                    }
-                    starts_from[len].insert(current_min);
-
-
-                    if (ends_to[len].count(current_min - 1)) {
-                        best_len = max(len + 1, best_len);
-                    }
-                    ends_to[len].insert(current_max);
+                    if (starts_from[current_max + 1][len + 1])
+                        best_len = max(best_len, len + 1);
+                    if (ends_to[current_min - 1][len + 1])
+                        best_len = max(best_len, len + 1);
+                    starts_from[current_min][len + 1] = true;
+                    ends_to[current_max][len + 1] = true;
                 }
             }
         }
