@@ -38,7 +38,7 @@ int main() {
         int n;
         cin >> n;
 
-        vector<int> h(2 * n);
+        vector<ll> h(2 * n);
         for (int i = 0; i < n; i++) cin >> h[i];
         for (int i = 0; i < n; i++) {
             h[n + i] = h[i];
@@ -47,15 +47,25 @@ int main() {
         vector<ll> res(n);
         for (int i = 0; i < n; i++) {
             // i - то, что с 0 уровнем воды
-            vector<ll> current(n - 1);
-            int current_ptr = 0;
-            for (int j = i; j < i + n - 1; j++) {
-                current[current_ptr++] = h[j];
+            vector<ll> left_borders(n);
+            left_borders[0] = 0;
+            for (int j = 1; j < n; j++) {
+                left_borders[j] = max(left_borders[j - 1], h[i + j - 1]);
             }
-            for (int j = i + n - 2; j > i; j--) {
-                current[current_ptr--] = min(current[current_ptr], h[j]);
-                // допишу завтра
+
+
+            vector<ll> right_borders(n);
+            right_borders[n - 1] = 0;
+            for (int j = 1; j < n; j++) {
+                right_borders[j] = max(right_borders[j - 1], h[i + n - j]);
             }
+
+            ll total = 0;
+            for (int j = 1; j < n; j++) {
+                total += min(left_borders[j], right_borders[n - j]);
+            }
+            cout << total << ' ';
         }
+        cout << endl;
     }
 }
