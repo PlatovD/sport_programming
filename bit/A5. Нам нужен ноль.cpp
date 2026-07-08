@@ -34,4 +34,26 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<ll> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+
+        ll good_x = -1;
+        for (int x = 0; x <= 255; x++) {
+            ll res = a[0] ^ x;
+            for (int i = 1; i < n; i++) {
+                res ^= a[i] ^ x;
+            }
+            if (res == 0) {
+                good_x = x;
+                break;
+            }
+        }
+        cout << good_x << '\n';
+    }
 }

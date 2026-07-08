@@ -19,10 +19,7 @@
 #include <assert.h>
 
 #define ll long long
-// #define _DEBUG
 using namespace std;
-
-ll MOD = 1e9 + 7;
 
 // шаблон
 int main() {
@@ -34,4 +31,25 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int n;
+    cin >> n;
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    vector<ll> b(n);
+    for (int i = 0; i < n; i++) cin >> b[i];
+
+    vector<ll> dp(n, INT64_MIN);
+    for (int i = n - 1; i > -1; i--) {
+        dp[i] = b[i];
+        for (int j = i + 1; j < n; j++) {
+            if (a[j] > a[i]) dp[i] = max(dp[i], b[i] + dp[j]);
+        }
+    }
+
+    ll best = INT64_MIN;
+    for (int i = 0; i < n; i++) {
+        best = max(best, dp[i]);
+    }
+    cout << best;
 }

@@ -34,4 +34,27 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int t;
+    cin >> t;
+
+    vector<int> prefix(3 * 1e5 + 1);
+    prefix[0] = 0;
+    for (int i = 1; i < 3 * 1e5 + 1; i++) {
+        prefix[i] = prefix[i - 1] ^ i;
+    }
+
+    while (t--) {
+        int a, b;
+        cin >> a >> b;
+
+        int xor_for_a = prefix[a - 1];
+        if (xor_for_a == b) {
+            cout << a << '\n';
+        } else if ((xor_for_a ^ a) == b) {
+            cout << a + 2 << '\n';
+        } else {
+            cout << a + 1 << '\n';
+        }
+    }
 }

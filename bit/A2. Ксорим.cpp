@@ -34,4 +34,14 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int a, b;
+        cin >> a >> b;
+
+        int x = a | b;
+        cout << (a ^ x) + (b ^ x) << '\n';
+    }
 }

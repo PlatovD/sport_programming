@@ -34,4 +34,19 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<ll> nums(n);
+        for (int i = 0; i < n; i++) cin >> nums[i];
+
+        ll res = nums[0];
+        for (int i = 1; i < n; i++) {
+            res &= nums[i];
+        }
+        cout << res << endl;
+    }
 }

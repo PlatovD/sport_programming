@@ -34,4 +34,16 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    ll l, r;
+    cin >> l >> r;
+    ll res_xor = 0;
+    for (int i = 61; i > -1; i--) {
+        ll checker = 1ll << i;
+        if ((l & checker) != (r & checker)) {
+            res_xor = (1ll << (i + 1)) - 1;
+            break;
+        }
+    }
+    cout << res_xor;
 }

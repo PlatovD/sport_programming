@@ -34,4 +34,32 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    ll n, k;
+    cin >> n >> k;
+
+    priority_queue<ll> pq;
+    ll power = 1;
+    while (n > 0) {
+        if (n & 1) pq.push(power);
+        power *= 2;
+        n >>= 1;
+    }
+
+    while (pq.size() != k && pq.size() < k && pq.top() != 1) {
+        ll cur = pq.top();
+        pq.pop();
+        pq.push(cur / 2);
+        pq.push(cur / 2);
+    }
+
+    if (pq.size() != k) {
+        cout << "NO";
+    } else {
+        cout << "YES" << '\n';
+        while (!pq.empty()) {
+            cout << pq.top() << " ";
+            pq.pop();
+        }
+    }
 }

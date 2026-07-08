@@ -34,4 +34,13 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int n;
+    cin >> n;
+    int cnt = 0;
+    while (n > 0) {
+        cnt += n & 1;
+        n >>= 1;
+    }
+    cout << cnt;
 }

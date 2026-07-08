@@ -34,4 +34,26 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int n;
+    cin >> n;
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    bool found = false;
+    for (int mask = 0; mask < 1 << n; mask++) {
+        ll angle = 0;
+        for (int i = 0; i < n; i++) {
+            if (mask & (1 << i)) {
+                angle += a[i];
+            } else {
+                angle -= a[i];
+            }
+        }
+        if (angle % 360 == 0) {
+            found = true;
+            break;
+        }
+    }
+    cout << (found ? "YES" : "NO") << endl;
 }
