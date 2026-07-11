@@ -24,10 +24,7 @@ using namespace std;
 
 ll MOD = 1e9 + 7;
 
-
-void solve() {
-}
-
+// шаблон
 int main() {
 #if defined _DEBUG
     freopen("input.txt", "r", stdin);
@@ -37,4 +34,28 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
+
+    int n, t;
+    cin >> n >> t;
+    t--;
+
+    vector<ll> portals(n - 1);
+    for (int i = 0; i < n - 1; i++) {
+        cin >> portals[i];
+    }
+
+    set<ll> viewed_cells;
+    ll current_cell = 0;
+    while (true) {
+        if (current_cell == t) {
+            cout << "YES";
+            return 0;
+        }
+        if (viewed_cells.count(current_cell) || current_cell >= n - 1) {
+            cout << "NO";
+            return 0;
+        }
+        viewed_cells.insert(current_cell);
+        current_cell = current_cell + portals[current_cell];
+    }
 }
