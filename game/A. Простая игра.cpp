@@ -26,6 +26,19 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int n;
+    cin >> n;
+    ll sum = 0;
+    ll num;
+    for (int i = 0; i < n; i++) {
+        cin >> num;
+        sum += num;
+    }
+    if (sum % 2 == 0) {
+        cout << "Second";
+    } else {
+        cout << "First";
+    }
 }
 
 int main() {

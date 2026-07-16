@@ -26,6 +26,22 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n;
+    cin >> n;
+
+    set<ll> lost_start_positions;
+    ll pos = 1;
+    ll magnifier = 2;
+    while (pos <= n && pos > 0) {
+        lost_start_positions.insert(pos);
+        pos += magnifier;
+        magnifier *= 2;
+    }
+    if (lost_start_positions.find(n) != lost_start_positions.end()) {
+        cout << "Second";
+    } else {
+        cout << "First";
+    }
 }
 
 int main() {

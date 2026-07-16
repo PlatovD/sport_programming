@@ -26,6 +26,26 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int n;
+    cin >> n;
+    vector colors(n + 2, 1);
+    colors[0] = 1;
+    colors[1] = 1;
+    for (ll i = 2; i <= n + 1; i++) {
+        for (ll j = i * i; j <= n + 1; j += i) {
+            colors[j] = 2;
+        }
+    }
+
+    int ma = 0;
+    for (int i = 2; i <= n + 1; i++) {
+        ma = max(colors[i], ma);
+    }
+    cout << ma << '\n';
+
+    for (int i = 2; i <= n + 1; i++) {
+        cout << colors[i] << " ";
+    }
 }
 
 int main() {

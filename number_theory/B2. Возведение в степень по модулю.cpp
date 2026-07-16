@@ -24,14 +24,28 @@ using namespace std;
 
 ll MOD = 1e9 + 7;
 
+ll fast_pow(ll num, ll power, ll mod) {
+    if (power == 0) return 1;
+    if (power == 1) return num % mod;
+    if (power % 2 == 0) {
+        ll res = fast_pow(num, power / 2, mod) % mod;
+        return res * res % mod;
+    }
+    return num * fast_pow(num, power - 1, mod) % mod;
+}
 
 void solve() {
+    ll a, x, m;
+    cin >> a >> x >> m;
+    cout << fast_pow(a, x, m);
 }
+
 
 int main() {
 #if defined _DEBUG
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
+
 #endif
     std::ios::sync_with_stdio(false);
     cout << fixed << setprecision(10);

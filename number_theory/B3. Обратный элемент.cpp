@@ -24,8 +24,20 @@ using namespace std;
 
 ll MOD = 1e9 + 7;
 
+ll fast_pow(ll num, ll power, ll mod) {
+    if (power == 0) return 1;
+    if (power == 1) return num;
+    if (power % 2 == 0) {
+        ll res = fast_pow(num, power / 2, mod) % mod;
+        return res * res % mod;
+    }
+    return num % mod * fast_pow(num, power - 1, mod) % mod;
+}
 
 void solve() {
+    ll a, mod;
+    cin >> a >> mod;
+    cout << fast_pow(a, mod - 2, mod) << endl;
 }
 
 int main() {

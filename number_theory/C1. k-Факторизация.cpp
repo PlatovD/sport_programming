@@ -26,6 +26,38 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n, k;
+    cin >> n >> k;
+
+    vector<ll> divs;
+
+    while (n % 2 == 0) {
+        n /= 2;
+        divs.push_back(2);
+    }
+
+    for (int i = 3; i * i <= n; i++) {
+        while (n % i == 0) {
+            n /= i;
+            divs.push_back(i);
+        }
+    }
+
+    if (n > 1) divs.push_back(n);
+
+    if (divs.size() < k) {
+        cout << -1;
+        return;
+    }
+
+    if (divs.size() > k) {
+        for (int i = divs.size() - 1; i >= k; i--) {
+            divs[k - 1] *= divs[i];
+        }
+    }
+    for (int i = 0; i < k; i++) {
+        cout << divs[i] << " ";
+    }
 }
 
 int main() {

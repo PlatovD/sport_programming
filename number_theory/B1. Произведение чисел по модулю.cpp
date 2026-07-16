@@ -26,6 +26,18 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int n;
+    cin >> n;
+    ll cur, num;
+    cin >> cur;
+    cur = (cur % MOD + MOD) % MOD;
+    for (int i = 0; i < n - 1; i++) {
+        cin >> num;
+        num = (num % MOD + MOD) % MOD;
+        cur *= num;
+        cur = (cur % MOD + MOD) % MOD;
+    }
+    cout << cur;
 }
 
 int main() {

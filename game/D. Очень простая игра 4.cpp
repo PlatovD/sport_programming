@@ -26,6 +26,17 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n, m;
+    cin >> n >> m;
+    ll total = n * m;
+    if (n % 2 == 0 && m % 2 == 0) {
+        cout << "Second";
+    } else if (n % 2 == 1 && m % 2 == 1) {
+        cout << "First";
+    } else if (total % 2 == 0) {
+        cout << "First";
+    } else
+        cout << "Second";
 }
 
 int main() {

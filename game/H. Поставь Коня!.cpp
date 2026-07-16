@@ -19,13 +19,24 @@
 #include <assert.h>
 
 #define ll long long
-// #define _DEBUG
+#define _DEBUG
 using namespace std;
 
 ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        if (n % 2 == 0) {
+            cout << 1 << '\n';
+        } else {
+            cout << 0 << '\n';
+        }
+    }
 }
 
 int main() {

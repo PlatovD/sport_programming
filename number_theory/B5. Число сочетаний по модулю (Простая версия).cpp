@@ -24,8 +24,30 @@ using namespace std;
 
 ll MOD = 1e9 + 7;
 
+ll factorial(ll num) {
+    if (num == 1) return 1;
+    return (num % MOD * factorial(num - 1) % MOD) % MOD;
+}
+
+ll fast_pow(ll num, ll power, ll mod) {
+    if (power == 0) return 1;
+    if (power == 1) return num;
+    if (power % 2 == 0) {
+        ll res = fast_pow(num, power / 2, mod) % mod;
+        return res * res % mod;
+    }
+    return num * fast_pow(num, power - 1, mod) % mod;
+}
 
 void solve() {
+    ll n, k;
+    cin >> n >> k;
+
+    ll numerator = factorial(n) % MOD;
+    ll denominator = (factorial(k) % MOD * factorial(n - k) % MOD) % MOD;
+
+    ll denominator_inverse = fast_pow(denominator, MOD - 2, MOD) % MOD;
+    cout << numerator * denominator_inverse % MOD;
 }
 
 int main() {

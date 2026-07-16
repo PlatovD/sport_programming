@@ -26,6 +26,15 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n;
+    cin >> n;
+
+    ll sqrt_n = sqrt(n);
+    if (n < sqrt_n * (sqrt_n + 1)) {
+        cout << "First";
+    } else {
+        cout << "Second";
+    }
 }
 
 int main() {

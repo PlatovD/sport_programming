@@ -26,6 +26,14 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n;
+    cin >> n;
+
+    if (n % 3 == 0) {
+        cout << "Second";
+    } else {
+        cout << "First";
+    }
 }
 
 int main() {

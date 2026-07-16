@@ -26,6 +26,21 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    double a, b, c, d, e, f;
+    cin >> a >> b >> c >> d >> e >> f;
+
+    vector<vector<double> > m{{a, b, c}, {d, e, f}};
+    if (a == 0)
+        swap(m[0], m[1]);
+
+    double coef = -m[1][0] / m[0][0];
+    for (int i = 0; i < 3; i++) {
+        m[1][i] += m[0][i] * coef;
+    }
+
+    double y = m[1][2] / m[1][1];
+    double x = (m[0][2] - m[0][1] * y) / m[0][0];
+    cout << x << ' ' << y;
 }
 
 int main() {

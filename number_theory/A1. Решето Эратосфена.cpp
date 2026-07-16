@@ -26,6 +26,23 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n;
+    cin >> n;
+    vector is_simple(n + 1, true);
+    is_simple[0] = false;
+    is_simple[1] = false;
+    for (ll i = 2; i <= n; i++) {
+        if (is_simple[i]) {
+            for (ll j = i * i; j <= n; j += i) {
+                is_simple[j] = false;
+            }
+        }
+    }
+    for (ll i = 0; i <= n; i++) {
+        if (is_simple[i]) {
+            cout << i << ' ';
+        }
+    }
 }
 
 int main() {

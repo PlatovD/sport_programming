@@ -26,6 +26,16 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int t;
+    cin >> t;
+    ll p, q;
+    while (t--) {
+        cin >> p >> q;
+        while (p % q == 0) {
+            p /= q;
+        }
+        cout << p << '\n';
+    }
 }
 
 int main() {
