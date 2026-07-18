@@ -19,14 +19,31 @@
 #include <assert.h>
 
 #define ll long long
-#define ld long double
 // #define _DEBUG
 using namespace std;
 
 ll MOD = 1e9 + 7;
 
 
+ll fast_pow(ll num, ll power) {
+    ll res = 1;
+    while (power > 0) {
+        if (power & 1)
+            res *= num;
+        num *= num;
+        power >>= 1;
+    }
+    return res;
+}
+
 void solve() {
+    int n;
+    cin >> n;
+    ll total = 0;
+    for (int i = 1; i <= n; i++) {
+        total += fast_pow(2, i);
+    }
+    cout << total;
 }
 
 int main() {

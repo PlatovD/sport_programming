@@ -19,14 +19,37 @@
 #include <assert.h>
 
 #define ll long long
-#define ld long double
 // #define _DEBUG
 using namespace std;
 
 ll MOD = 1e9 + 7;
 
+ll fast_pow(ll num, ll power, ll mod) {
+    num %= mod;
+    ll res = 1;
+    while (power > 0) {
+        if (power & 1)
+            res = res * num % mod;
+        num = num * num % mod;
+        power >>= 1;
+    }
+    return res;
+}
+
+ll factorial(ll num, ll mod) {
+    if (num == 0) return 1;
+    if (num == 1) return 1;
+    return num % mod * factorial(num - 1, mod) % mod % mod;
+}
 
 void solve() {
+    ll n;
+    cin >> n;
+
+    ll numerator = factorial(2 * n - 1, MOD) % MOD;
+    ll divider = fast_pow((factorial(n - 1, MOD) * factorial(n, MOD)) % MOD, MOD - 2, MOD) % MOD;
+    ll res = ((2 * numerator % MOD * divider % MOD) % MOD - n + MOD) % MOD;
+    cout << res << '\n';
 }
 
 int main() {

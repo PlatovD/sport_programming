@@ -19,7 +19,6 @@
 #include <assert.h>
 
 #define ll long long
-#define ld long double
 // #define _DEBUG
 using namespace std;
 
@@ -27,7 +26,15 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n;
+    cin >> n;
+    ll c = n * (n - 1) * (n - 2) * (n - 3) * (n - 4) / 120;
+    ll a = n * (n - 1) * (n - 2) * (n - 3) * (n - 4);
+    ll ans = c * a;
+
+    cout << ans << '\n';
 }
+
 
 int main() {
 #if defined _DEBUG

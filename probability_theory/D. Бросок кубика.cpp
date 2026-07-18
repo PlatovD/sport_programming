@@ -19,14 +19,29 @@
 #include <assert.h>
 
 #define ll long long
-#define ld long double
 // #define _DEBUG
 using namespace std;
 
 ll MOD = 1e9 + 7;
 
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
 
 void solve() {
+    int y, w;
+    cin >> y >> w;
+
+    int max_res = max(y, w);
+    int possibilities = 6 - max_res + 1;
+    if (possibilities >= 6) {
+        cout << "1/1";
+        return;
+    }
+    int divider = 6;
+    int g = gcd(possibilities, divider);
+    cout << to_string(possibilities / g) + "/" + to_string(divider / g);
 }
 
 int main() {

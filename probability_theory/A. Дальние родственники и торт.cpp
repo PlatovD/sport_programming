@@ -19,7 +19,6 @@
 #include <assert.h>
 
 #define ll long long
-#define ld long double
 // #define _DEBUG
 using namespace std;
 
@@ -27,6 +26,36 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int n;
+    cin >> n;
+    vector<string> map(n);
+    for (int i = 0; i < n; i++) {
+        cin >> map[i];
+    }
+
+    vector rows(n, 0ll);
+    vector cols(n, 0ll);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            rows[i] += map[i][j] == 'C' ? 1 : 0;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cols[j] += map[i][j] == 'C' ? 1 : 0;
+        }
+    }
+
+    ll total = 0;
+    for (auto x: rows) {
+        total += (x - 1) * x / 2;
+    }
+    for (auto x: cols) {
+        total += (x - 1) * x / 2;
+    }
+    cout << total;
 }
 
 int main() {
