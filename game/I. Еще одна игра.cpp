@@ -27,6 +27,22 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int n;
+    cin >> n;
+
+    bool flag = false;
+    int num;
+    while (n--) {
+        cin >> num;
+        if (num % 2 == 1) {
+            flag = true;
+        }
+    }
+    if (flag) {
+        cout << "first" << '\n';
+    } else {
+        cout << "second" << '\n';
+    }
 }
 
 int main() {
@@ -39,7 +55,7 @@ int main() {
     cin.tie(0);
     cout.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) {
         solve();
     }

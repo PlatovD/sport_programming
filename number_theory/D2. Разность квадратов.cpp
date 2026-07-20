@@ -27,6 +27,8 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    ll n;
+    cin >> n;
 }
 
 int main() {

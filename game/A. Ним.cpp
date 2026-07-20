@@ -27,6 +27,19 @@ ll MOD = 1e9 + 7;
 
 
 void solve() {
+    int n;
+    cin >> n;
+    ll res_xor = 0;
+    ll cur;
+    for (int i = 0; i < n; i++) {
+        cin >> cur;
+        res_xor ^= cur;
+    }
+    if (res_xor == 0) {
+        cout << "second" << '\n';
+    } else {
+        cout << "first" << '\n';
+    }
 }
 
 int main() {
@@ -39,7 +52,7 @@ int main() {
     cin.tie(0);
     cout.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) {
         solve();
     }

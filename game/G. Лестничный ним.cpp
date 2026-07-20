@@ -25,8 +25,22 @@ using namespace std;
 
 ll MOD = 1e9 + 7;
 
-
 void solve() {
+    int n;
+    cin >> n;
+
+    ll cur_xor = 0;
+    ll num;
+    for (int i = 1; i <= n; i++) {
+        cin >> num;
+        if (i % 2 == 1)continue;
+        cur_xor ^= num;
+    }
+    if (cur_xor != 0) {
+        cout << "first" << '\n';
+    } else {
+        cout << "second" << '\n';
+    }
 }
 
 int main() {
@@ -39,7 +53,8 @@ int main() {
     cin.tie(0);
     cout.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while (t--) {
         solve();
     }
