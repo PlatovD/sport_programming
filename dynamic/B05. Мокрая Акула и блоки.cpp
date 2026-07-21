@@ -1,0 +1,100 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<queue>
+#include<deque>
+#include<map>
+#include<unordered_map>
+#include<string>
+#include<cstring>
+#include<stack>
+#include<vector>
+#include <cstdint>
+#include <set>
+#include <algorithm>
+#include <random>
+#include <iomanip>
+#include <assert.h>
+
+#define ll long long
+#define ld long double
+// #define _DEBUG
+using namespace std;
+
+ll MOD = 1e9 + 7;
+
+vector<vector<ll> > mul_matrix(vector<vector<ll> > &m1, vector<vector<ll> > &m2, ll mod) {
+    vector res(m1.size(), vector<ll>(m2[0].size(), 0));
+
+    for (int i = 0; i < m1.size(); i++) {
+        for (int j = 0; j < m2[0].size(); j++) {
+            ll x = 0;
+            for (int k = 0; k < m2.size(); k++) {
+                x = (x + m1[i][k] * m2[k][j] % mod) % mod;
+            }
+            res[i][j] = x;
+        }
+    }
+
+    return res;
+}
+
+vector<vector<ll> > fast_pow(vector<vector<ll> > &m, ll power, ll mod) {
+    vector res(m.size(), vector<ll>(m[0].size(), 0));
+    for (int i = 0; i < m.size(); i++) res[i][i] = 1;
+
+
+    while (power > 0) {
+        if (power & 1) res = mul_matrix(res, m, mod);
+        m = mul_matrix(m, m, mod);
+        power >>= 1;
+    }
+
+    return res;
+}
+
+void solve() {
+    ll n, b, k, x;
+    cin >> n >> b >> k >> x;
+
+
+    map<ll, ll> counts;
+    ll num;
+    for (int i = 0; i < n; i++) {
+        cin >> num;
+        counts[num]++;
+    }
+
+    vector g(x, vector<ll>(x, 0));
+    for (int i = 0; i < x; ++i) {
+        for (int d = 0; d <= 9; ++d) {
+            int j = (i * 10 + d) % x; // умножаю остаток на 10 и добавляю новую цифру на конец
+            g[j][i] = g[j][i] + counts[d];
+        }
+    }
+
+    vector<vector<ll> > res_g = fast_pow(g, b, MOD);
+    vector start(x, vector<ll>(1, 0));
+    start[0][0] = 1;
+
+    vector<vector<ll> > res = mul_matrix(res_g, start, MOD);
+    cout << res[k][0];
+}
+
+int main() {
+#if defined _DEBUG
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+    std::ios::sync_with_stdio(false);
+    cout << fixed << setprecision(10);
+    cin.tie(0);
+    cout.tie(0);
+    int t = 1;
+    // cin >> t;
+    while (t--) {
+        solve();
+    }
+}
