@@ -19,11 +19,66 @@
 #include <assert.h>
 
 #define ll long long
+#define ld long double
+// #define _DEBUG
 using namespace std;
 
 ll MOD = 1e9 + 7;
 
-// шаблон
+int find_pos_for_el(int el, vector<int> &dp) {
+    int l = 0, r = dp.size() - 1;
+    int good_pos = 0;
+    while (l <= r) {
+        int mid = l + (r - l) / 2;
+        if (dp[mid] >= el) {
+            good_pos = mid;
+            r = mid - 1;
+        } else {
+            l = mid + 1;
+        }
+    }
+    return good_pos;
+}
+
+void solve() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    vector dp(n, 1);
+    vector<ll> ways(n, 1);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (a[j] < a[i]) {
+                if (dp[i] < 1 + dp[j]) {
+                    ways[i] = 1;
+                    dp[i] = 1 + dp[j];
+                    ways[i] = ways[j];
+                } else if (dp[i] == 1 + dp[j]) {
+                    ways[i] = (ways[i] + ways[j]) % MOD;
+                }
+            }
+        }
+    }
+
+    int max_len = -1;
+    for (int i = 0; i < n; i++) {
+        max_len = max(max_len, dp[i]);
+    }
+    cout << max_len << ' ';
+
+    ll res = 0;
+    for (int i = 0; i < n; i++) {
+        if (dp[i] == max_len) {
+            res = (res + ways[i] % MOD) % MOD;
+        }
+    }
+    cout << res;
+}
+
 int main() {
 #if defined _DEBUG
     freopen("input.txt", "r", stdin);
@@ -33,61 +88,9 @@ int main() {
     cout << fixed << setprecision(10);
     cin.tie(0);
     cout.tie(0);
-
-    int n;
-    cin >> n;
-    vector<ll> a(n);
-    for (int i = 0; i < n; i++) cin >> a[i];
-
-    vector<ll> dp(n, INT64_MAX);
-    dp[0] = a[0];
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n - 1; j++) {
-            if (a[i] > dp[j]) {
-                dp[j + 1] = min(dp[j + 1], a[i]);
-            } else {
-                dp[j] = min(dp[j], a[i]);
-                break;
-            }
-        }
-    }
-
-    ll best_size = 1;
-    for (int i = n - 1; i > -1; i--) {
-        if (dp[i] != INT64_MAX) {
-            cout << i + 1 << " ";
-            best_size = i;
-            break;
-        }
-    }
-
-    vector<ll> pretends(best_size); // претенденты на каждую из позиций, после установления итоговой длины
-    ll total = 0;
-    for (int i = 0; i < n; i++) {
-        ll local_total = 1;
-        bool was_match = false;
-
-        if (a[i] == dp[0]) {
-            was_match = true;
-            pretends[0]++;
-            local_total *= 1;
-        } else {
-            local_total *= dp[0] % MOD;
-        }
-
-        if (a[i] == dp[best_size]) {
-            was_match = true;
-            pretends[best_size]++;
-            local_total *= 1;
-        } else {
-            local_total *= dp[best_size] % MOD;
-        }
-
-        for (int j = 1; j < best_size - 1; j++) {
-            if (a[])
-
-
-
-        }
+    int t = 1;
+    // cin >> t;
+    while (t--) {
+        solve();
     }
 }
