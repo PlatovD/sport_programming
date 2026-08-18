@@ -17,40 +17,74 @@
 #include <random>
 #include <iomanip>
 #include <assert.h>
-
+#include <unordered_set>
 #define ll long long
 #define ld long double
 // #define _DEBUG
 using namespace std;
-
 ll MOD = 1e9 + 7;
 
+bool compare(vector<int> &a, vector<int> &b, set<int> &elements_used) {
+    int ptr_a = 0, ptr_b = 0;
+    while (ptr_a < a.size() && ptr_b < b.size()) {
+        while (ptr_a < a.size() && elements_used.count(a[ptr_a]))ptr_a++;
+        while (ptr_b < b.size() && elements_used.count(b[ptr_b]))ptr_b++;
+        if (ptr_a >= a.size() || ptr_b >= b.size()) break;
+        if (a[ptr_a] < b[ptr_b]) return true;
+        if (a[ptr_a] > b[ptr_b]) return false;
+        ptr_a++;
+        ptr_b++;
+    }
+    if (ptr_a == a.size() && ptr_b <= b.size()) return true;
+    return false;
+}
 
 void solve() {
     int n;
     cin >> n;
-
     vector<vector<int> > a;
-    vector index(n, 0);
-    vector<int> res;
     for (int i = 0; i < n; i++) {
         int m;
         cin >> m;
-        vector<int> nums(m);
+        int prev = -1;
+        int num;
+        vector<int> nums;
         for (int j = m - 1; j >= 0; j--) {
-            cin >> nums[j];
+            cin >> num;
+            if (num == prev) continue;
+            prev = num;
+            nums.push_back(num);
         }
+        reverse(nums.begin(), nums.end());
         a.push_back(nums);
     }
 
-    vector pretend(n, true);
-    int current_combo_size = 0;
+    vector used(n, false);
+    set<int> used_elements;
+    vector<int> q;
+    vector<int> *best;
     for (int i = 0; i < n; i++) {
-        int min_val, cnt_min_value, index_min_value;
-        for (auto cur_index: index) {
-
+        best = new vector(1, INT32_MAX);
+        int best_index = -1;
+        for (int j = 0; j < n; j++) {
+            if (used[j]) continue;
+            if (!compare(*best, a[j], used_elements)) {
+                best = &a[j];
+                best_index = j;
+            }
         }
+        for (int j: *best) {
+            if (used_elements.count(j))continue;
+            q.push_back(j);
+            used_elements.insert(j);
+        }
+        used[best_index] = true;
     }
+
+    for (auto el: q) {
+        cout << el << " ";
+    }
+    cout << '\n';
 }
 
 int main() {
