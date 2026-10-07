@@ -25,17 +25,17 @@ using namespace std;
 
 ll MOD = 1e9 + 7;
 
-ll cacl_time(ll curr, vector<ll> &s, vector<ll> &p) {
-    ll sum = 0;
-    for (int i = 0; i < s.size(); i++) {
-        sum += abs(s[i] - p[i] * curr);
-    }
-    return sum;
-}
-
 ll gcd(ll a, ll b) {
     if (b == 0) return a;
     return gcd(b, a % b);
+}
+
+ll check(ll k, vector<ll> &s, vector<ll> &p) {
+    ll total = 0;
+    for (int i = 0; i < s.size(); i++) {
+        total += abs(k * p[i] - s[i]);
+    }
+    return total;
 }
 
 void solve() {
@@ -44,10 +44,10 @@ void solve() {
 
     vector<ll> s(n), p(n);
     for (int i = 0; i < n; i++) cin >> s[i];
+    for (int i = 0; i < n; i++) cin >> p[i];
 
     ll g = 0;
     for (int i = 0; i < n; i++) {
-        cin >> p[i];
         g = gcd(g, p[i]);
     }
 
@@ -56,25 +56,19 @@ void solve() {
     }
 
     ll left = 1;
-    ll right = 1e6;
-
-    while (right - left > 2) {
-        ll m1 = left + (right - left) / 3;
-        ll m2 = right - (right - left) / 3;
-
-        if (cacl_time(m1, s, p) < cacl_time(m2, s, p)) {
-            right = m2;
+    ll right = 1e12;
+    while (left < right) {
+        ll mid = left + (right - left) / 2;
+        ll m1 = check(mid, s, p);
+        ll m2 = check(mid + 1, s, p);
+        if (m1 < m2) {
+            right = mid;
         } else {
-            left = m1;
+            left = mid + 1;
         }
     }
 
-    ll min_time = cacl_time(left, s, p);
-    for (ll curr = left + 1; curr <= right; curr++) {
-        min_time = min(min_time, cacl_time(curr, s, p));
-    }
-
-    cout << min_time << "\n";
+    cout << check(left, s, p);
 }
 
 
